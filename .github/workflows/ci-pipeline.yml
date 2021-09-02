@@ -8,8 +8,8 @@ jobs:
       - run: source ~/.profile
       - run: echo "pre-commit installed"
       - run: pwd
+      - run: ls -lah
       - run: pre-commit --version
-      # - run: apt install git
       - run: git --version
       - run: pre-commit install
       - run: pre-commit run --all-files
