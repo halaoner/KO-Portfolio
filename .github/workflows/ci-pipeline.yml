@@ -8,4 +8,5 @@ jobs:
       - run: source ~/.profile
       - run: echo "pre-commit installed"
       - run: pre-commit --version
-      - run: pre-commit run
+      - run: cd ../..
+      - run: pre-commit run --all-files
