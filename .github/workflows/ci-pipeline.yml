@@ -10,4 +10,3 @@ jobs:
       - run: pre-commit --version
       - run: pre-commit install
       - run: pre-commit run --all-files
-      
