@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: curl https://pre-commit.com/install-local.py | python -
+      - run: echo "pre-commit installed"
       - run: pre-commit --version
       - run: pre-commit install
       - run: pre-commit run --all-files
