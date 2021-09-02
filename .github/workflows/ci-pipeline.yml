@@ -9,6 +9,7 @@ jobs:
       - run: echo "pre-commit installed"
       - run: pwd
       - run: ls -lah
+      - run: git clone git@github.com:halaoner/KO-Portfolio.git
       - run: pre-commit --version
       - run: git --version
       - run: pre-commit install
