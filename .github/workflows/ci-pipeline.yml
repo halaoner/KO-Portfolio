@@ -7,6 +7,7 @@ jobs:
       - run: pip install pre-commit
       - run: source ~/.profile
       - run: echo "pre-commit installed"
+      - run: pwd
       - run: pre-commit --version
       - run: pre-commit install
       - run: pre-commit run --all-files
