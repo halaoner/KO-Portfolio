@@ -16,7 +16,7 @@ jobs:
           # persist-credentials: false
           token: ${{ secrets.ACCESS_TOKEN }}
       - run: pwd && ls -lah
-      - run: git checkout dev
+      - run: git checkout ci-pipeline
       - run: pwd && ls -lah
       # - run: ssh-agent bash -c 'ssh-add ${{ secrets.SSH_KEY }}; git clone git@github.com:halaoner/KO-Portfolio.git'
       # - run: git clone git@github.com:halaoner/KO-Portfolio.git
