@@ -9,9 +9,9 @@ jobs:
       - run: echo "pre-commit installed"
       - run: pwd
       - run: ls -lah
-      - uses: actions/checkout@dev 
+      - uses: actions/checkout@v2
         with:
-          repository: halaoner/KO-Portfolio.git
+          repository: halaoner/KO-Portfolio
           token: ${{ secrets.ACCESS_TOKEN }}
       - run: pwd && ls -lah
       - run: git checkout dev
