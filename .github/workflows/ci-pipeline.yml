@@ -5,7 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: pip install pre-commit
-      - uses: actions/checkout@v1
+      - name: clonning repository
+        uses: actions/checkout@v1
         with:
           repository: halaoner/KO-Portfolio
           token: ${{ secrets.ACCESS_TOKEN }}
