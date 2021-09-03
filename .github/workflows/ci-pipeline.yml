@@ -12,14 +12,10 @@ jobs:
       - uses: actions/checkout@v1
         with:
           repository: halaoner/KO-Portfolio
-          # ssh-strict: false
-          # persist-credentials: false
           token: ${{ secrets.ACCESS_TOKEN }}
       - run: pwd && ls -lah
       - run: git checkout ci-pipeline
       - run: pwd && ls -lah
-      # - run: ssh-agent bash -c 'ssh-add ${{ secrets.SSH_KEY }}; git clone git@github.com:halaoner/KO-Portfolio.git'
-      # - run: git clone git@github.com:halaoner/KO-Portfolio.git
       - run: pre-commit --version
       - run: git --version
       - run: pre-commit install
