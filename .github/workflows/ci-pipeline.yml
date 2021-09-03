@@ -11,7 +11,7 @@ jobs:
       - run: ls -lah
       - uses: actions/checkout@dev 
         with:
-          name: halaoner/KO-Portfolio.git
+          repository: halaoner/KO-Portfolio.git
           token: ${{ secrets.ACCESS_TOKEN }}
       - run: pwd && ls -lah
       - run: git checkout dev
