@@ -18,10 +18,9 @@ jobs:
       - run: pwd && ls -lah
       - run: git checkout dev
       - run: pwd && ls -lah
-      # - run: ssh-agent bash -c 'ssh-add ${{ secrets.SSH_KEY }}; git clone git@github.com:halaoner/KO-Portfolio.git' 
+      # - run: ssh-agent bash -c 'ssh-add ${{ secrets.SSH_KEY }}; git clone git@github.com:halaoner/KO-Portfolio.git'
       # - run: git clone git@github.com:halaoner/KO-Portfolio.git
       - run: pre-commit --version
       - run: git --version
       - run: pre-commit install
       - run: pre-commit run --all-files
-
