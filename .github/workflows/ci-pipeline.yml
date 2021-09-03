@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v1
         with:
           repository: halaoner/KO-Portfolio
-          ssh-strict: false
+          # ssh-strict: false
           # persist-credentials: false
           token: ${{ secrets.ACCESS_TOKEN }}
       - run: pwd && ls -lah
