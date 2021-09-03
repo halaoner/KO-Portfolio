@@ -1,16 +1,16 @@
 name: ci-pipeline
 on: [push]
 jobs:
-  Run-pre-commit:
-    runs-on: ubuntu-latest
-    steps:
-      - run: pip install pre-commit
-      - uses: actions/checkout@v1
-        with:
-          repository: halaoner/KO-Portfolio
-          token: ${{ secrets.ACCESS_TOKEN }}
-      - run: git checkout ci-pipeline
-      - run: pwd && ls -lah
-      - run: pre-commit --version
-      - run: pre-commit install
-      - run: pre-commit run --all-files
+Run-pre-commit:
+  runs-on: ubuntu-latest
+  steps:
+    - run: pip install pre-commit
+    - uses: actions/checkout@v1
+      with:
+        repository: halaoner/KO-Portfolio
+        token: ${{ secrets.ACCESS_TOKEN }}
+    - run: git checkout ci-pipeline
+    - run: pwd && ls -lah
+    - run: pre-commit --version
+    - run: pre-commit install
+    - run: pre-commit run --all-files
