@@ -9,7 +9,7 @@ jobs:
       - run: echo "pre-commit installed"
       - run: pwd
       - run: ls -lah
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
         with:
           repository: halaoner/KO-Portfolio
           ssh-strict: false
