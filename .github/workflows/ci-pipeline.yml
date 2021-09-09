@@ -10,6 +10,6 @@ jobs:
         with:
           repository: halaoner/KO-Portfolio
           token: ${{ secrets.ACCESS_TOKEN }}
-      - run: git checkout ci-pipeline
+      # - run: git checkout ci-pipeline
       - run: pre-commit install
       - run: pre-commit run --all-files
