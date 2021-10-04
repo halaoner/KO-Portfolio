@@ -1,3 +1,5 @@
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fhalaoner%2FKO-Portfolio%2Fbadge%3Fref%3Ddev%26token%3D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&style=flat)](https://actions-badge.atrox.dev/halaoner/KO-Portfolio/goto?ref=dev&token=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)
+
 # KO-Portfolio
 
 KO-Portfolio is a [JavaScript](https://www.javascript.com) based web application runs on [AWS](https://aws.amazon.com) platform that serves a static content. The KO-Portfolio application is based on [Express](http://expressjs.com) framework for back-end and [EJS](https://ejs.co) templating + JavaScript for front-end. Also, the application contains [authentication](https://auth0.com/docs/login/authentication) and [authorization](https://auth0.com/intro-to-iam/what-is-authorization/) methods based on username, password, and [JSON Web Token](https://jwt.io).
