@@ -13,7 +13,7 @@ The advantage of JWT usage are:
 Authorization flow is described in [Authentication & Authorization Flow](#authentication-&-authorization-flow).
 
 # Authentication & Authorization Flow
-Diagram below describes how the user (admin) is authenticated, including authorization to access a protected server resource.
+Diagram below describes how the user (admin) is authenticated, including authorization to access a protected server resource (/admin page).
 
 
 ![A&A-flow](../diagrams/authentication-flow/A&A-flow.png)
