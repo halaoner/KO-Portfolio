@@ -13,7 +13,9 @@ The advantage of JWT usage are:
 Authorization flow is described in [Authentication & Authorization Flow](#authentication-&-authorization-flow).
 
 # Authentication & Authorization Flow
-Diagram below describes how the user (admin) is authenticated, including authorization to access a protected server resource (/admin page).
+Diagram below describes how the user (admin) is authenticated, including authorization to access a protected server resource (***/admin page***).\
+[Refresh token](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/) is issued by the server to the client application that replaces an expired JWT access token with a new one. Refresh token allows get new access token without having to ask the user to log in again.\
+Access token and refresh token are also [***bearer tokens***](https://oauth.net/2/bearer-tokens/).
 
 
 ![A&A-flow](../diagrams/authentication-flow/A&A-flow.png)
