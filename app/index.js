@@ -7,7 +7,7 @@ const jsonwebtoken = require('jsonwebtoken');
 //------- Configuration -------//
 require('dotenv').config()
 const PORT = process.env.PORT
-const JWT_secret = process.env.JWT_SECRET
+const JWT_SECRET = process.env.JWT_SECRET
 
 const app = express()
 app.engine('ejs', ejsMate)
