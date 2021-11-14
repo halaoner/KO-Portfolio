@@ -1,0 +1,42 @@
+#home {
+    color: black;
+    padding: 50px 30px;
+}
+#projects {
+    color: black;
+    padding: 50px 30px;
+}
+
+#about{
+    color: black;
+    padding: 50px 30px;
+    margin-right: 100px;
+}
+
+#introImage {
+    width: 500px;
+    height: 500px;
+}
+
+/* .navbar-toggler {
+    border-color: black
+} */
+
+#submit {
+    /* display: inline-block;
+    vertical-align: top; */
+    margin-left: 63rem;
+    /* white-space: normal */
+}
+
+#message {
+    height: 200px;
+}
+
+/* #contact {
+    background-color: burlywood;
+}
+
+#form {
+    background-color:blanchedalmond;
+} */
