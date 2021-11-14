@@ -10,3 +10,4 @@ repos:
       - id: check-added-large-files
       - id: check-json
       - id: pretty-format-json
+        exclude: app/package.json
