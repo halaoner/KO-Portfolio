@@ -7,11 +7,12 @@ KO-Portfolio is a [JavaScript](https://www.javascript.com) based web application
 The major goal of this project is to create a web application that will serve a portfolio of a UX Designer. The side effect is to develop and enhance the skills of the developer of this project, such as web development (JavaScript), containerization, and CI/ CD automation within the cloud environment, especially, AWS.
 
 ## Documentation
-- Functional and Non-Functional Requirements(TODO:)
+- [Functional Requirements](doc/application-requirements/functional-requirements.md)
+- [Non-Functional Requirements](doc/application-requirements/non-functional-requirements.md)
 - [Solution Architecture](doc/diagrams/solution-architecture/solution-architecture.png)
 - [Authentication & Authorization](doc/authentication/authentication.md)
-- Technology Stack (TODO:)
-- Cost Estimation Plan (TODO:)
+- [Technology Stack](doc/decision-log.md)
+- [Cost Estimation Plan](doc/cost-estimation-plan/cost-estimation-plan.md)
 - [CI/ CD Pipeline](doc/pipelines/pipelines.md)
 
 
