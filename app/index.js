@@ -41,6 +41,11 @@ app.get('/about', (req, res) => {
     res.send('Aboutme')
 })
 
+//--- If none of above paths is matched
+app.all('*', (req, res) => {
+    res.send('Page Not Found', 404)
+})
+
 app.listen(PORT, () => {
     console.log(`Server is listening at http://localhost:${PORT} 🚀`)
 })

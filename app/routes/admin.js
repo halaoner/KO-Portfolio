@@ -39,15 +39,15 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
     const payload = {
         user: 'Tim Burton',
-        role: 'admin'
-        // role: 'notAdmin'
+        role: 'admin',
+        // role: 'notAdmin',
+        company: 'XYZ'
     }
     try {
         if (req.body.username === 'Tim' && req.body.password === 'tim') {
             const token = jsonwebtoken.sign(payload, jwtSecret, { expiresIn: '1800s' }, { algorithm: 'HS256' })
             res.cookie('token', token, { httpOnly: true });
             console.log(`Issued Token: ${token}`)
-            // res.send('Tim is logged in.')
             res.redirect('/secret')
             console.log('Admin is logged in.')
         }
@@ -73,16 +73,30 @@ router.get('/secret', (req, res) => {
             else {
                 if (decodedJWT.role === 'admin') {
                     console.log('JWT AND ROLE IS VALID')
-                    res.send('JWT IS VALID - ACCESS APPROVED.')
+                    // res.send('JWT IS VALID - ACCESS APPROVED.')
+                    const username = decodedJWT.user
+                    const role = decodedJWT.role
+                    res.render('admin', { username, role })
                 }
                 else {
-                    res.send('You are not admin!')
+                    res.send('You are not admin! Do not have permissions!')
                 }
             }
             console.log('Decoded JWT:', decodedJWT)
         })
     } catch (error) {
         console.log('Secret error:', error.message)
+    }
+})
+
+router.post('/logout', (req, res) => {
+    if (req.cookies.token) {
+        res.clearCookie('token')
+        console.log('Deleted JWT access token:', req.cookies)
+        res.redirect('/login')
+    }
+    else {
+        res.send('Not Authorized!')
     }
 })
 
