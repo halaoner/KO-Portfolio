@@ -6,7 +6,7 @@ const router = express.Router()
 const route = require('./routes/routes')
 const adminRoute = require('./routes/admin');
 
-//------- Configuration -------//
+//------- .ENV CONFIGURATION -------//
 require('dotenv').config()
 const PORT = process.env.PORT
 
@@ -15,19 +15,14 @@ app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
-//--- parsing req.body
 app.use(express.urlencoded({ extended: true }))
-
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(cookieParser());
 
-//-------------ROUTES-------------//
-
-// app.use('/', route)
+//------------- ROUTES -------------//
+app.use('/', route)
 app.use(adminRoute)
-// app.use('/secret', route)
 // app.use('/home', route)
-// app.use('/test', adminRoute)
 
 // app.get('/home', (req, res) => {
 //     res.send('Home Page')
@@ -43,7 +38,7 @@ app.get('/about', (req, res) => {
 
 //--- If none of above paths is matched
 app.all('*', (req, res) => {
-    res.send('Page Not Found', 404)
+    res.status(404).send('Page Not Found')
 })
 
 app.listen(PORT, () => {

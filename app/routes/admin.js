@@ -7,11 +7,11 @@ const router = express.Router()
 const csrf = require('csurf')
 const bodyParser = require('body-parser')
 
-//------- Configuration -------//
+//------- .ENV CONFIGURATION -------//
 require('dotenv').config()
 const jwtSecret = process.env.JWT_SECRET
 
-//------- CSRF token configuration -------//
+//------- CSRF TOKEN CONFIGURATION -------//
 const csrfProtection = csrf({
     cookie: {
         httpOnly: true,
@@ -20,6 +20,7 @@ const csrfProtection = csrf({
         maxAge: 1800
     }
 })
+
 const parseForm = bodyParser.urlencoded({ extended: false })
 
 const app = express()
@@ -27,15 +28,13 @@ app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
-//--- parsing req.body
 app.use(express.urlencoded({ extended: true }))
-
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(cookieParser());
 app.use(csrfProtection)
 
 
-//------- Protected route -------//
+//------- PROTECTED ROUTE - VERIFY JWT -------//
 router.get('/admin', (req, res) => {
     try {
         if (req.cookies.token) {
@@ -48,7 +47,7 @@ router.get('/admin', (req, res) => {
                 else {
                     if (decodedJWT.role === 'admin') {
                         console.log('JWT AND ROLE IS VALID')
-                        console.log(`Decoded JWT: ${decodedJWT}`)
+                        // console.log('Decoded JWT:', decodedJWT)
                         const username = decodedJWT.user
                         const role = decodedJWT.role
                         res.render('admin', { username, role })
@@ -62,21 +61,21 @@ router.get('/admin', (req, res) => {
         else {
             res.redirect('/login')
         }
-        console.log(`Decoded JWT: ${decodedJWT}`)
     }
     catch (error) {
         console.log(`Secret error: ${error.message}`)
     }
 })
 
-router.get('/login', (req, res) => {
-    res.render('login')
+router.get('/login', csrfProtection, (req, res) => {
+    const csrfToken = req.csrfToken()
+    res.render('login', { csrfToken })
 })
 
 // ------------------- JWT ISSUE-------------------//
-router.post('/login', (req, res) => {
+router.post('/login', parseForm, csrfProtection, (req, res) => {
     const payload = {
-        user: 'Tim Burton XXX',
+        user: 'Tim Burton',
         role: 'admin',
         // role: 'notAdmin',
         company: 'XYZ'
@@ -85,7 +84,7 @@ router.post('/login', (req, res) => {
         if (req.body.username === 'Tim' && req.body.password === 'tim') {
             const token = jsonwebtoken.sign(payload, jwtSecret, { expiresIn: '1800s' }, { algorithm: 'HS256' })
             res.cookie('token', token, { httpOnly: true });
-            console.log(`Issued Token: ${token}`)
+            console.log(`Issued JWT Access Token: ${token}`)
             res.redirect('admin')
             console.log('Admin is logged in.')
         }
@@ -99,38 +98,10 @@ router.post('/login', (req, res) => {
 
 })
 
-// ------------------- JWT VERIFICATION-------------------//
-// router.get('/secret', (req, res) => {
-//     try {
-//         const sentJWT = req.cookies.token
-//         const decodedJWT = jsonwebtoken.verify(sentJWT, jwtSecret, function (error, decodedJWT) {
-//             if (error) {
-//                 console.log(`ERROR: ${error.message}`)
-//                 res.send('CANNOT ACCESS THIS OBJECT. JWT IS INVALID')
-//             }
-//             else {
-//                 if (decodedJWT.role === 'admin') {
-//                     console.log('JWT AND ROLE IS VALID')
-//                     // res.send('JWT IS VALID - ACCESS APPROVED.')
-//                     const username = decodedJWT.user
-//                     const role = decodedJWT.role
-//                     res.render('admin', { username, role })
-//                 }
-//                 else {
-//                     res.send('You are not admin! Do not have permissions!')
-//                 }
-//             }
-//             console.log('Decoded JWT:', decodedJWT)
-//         })
-//     } catch (error) {
-//         console.log('Secret error:', error.message)
-//     }
-// })
-
 router.post('/logout', (req, res) => {
     if (req.cookies.token) {
         res.clearCookie('token')
-        console.log(`Deleted JWT access token: ${req.cookies}`)
+        console.log(`Deleted JWT access token: ${req.cookies.token}`)
         res.redirect('/login')
     }
     else {
