@@ -1,6 +1,6 @@
 name: ci-pipeline
 on: [push]
-jobs:
+jobs1:
   Run-pre-commit:
     runs-on: ubuntu-latest
     steps:
@@ -12,6 +12,7 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
       - run: pre-commit install
       - run: pre-commit run --all-files
+job2:
   SonarQube-Scan:
     runs-on: ubuntu-latest
     steps:
