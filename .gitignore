@@ -1,5 +1,2 @@
 # Ignoring .DS_Store file
 *.DS_Store
-
-# Ignoring sonarqube properties
-sonar-project.properties
