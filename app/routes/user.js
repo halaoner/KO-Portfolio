@@ -6,6 +6,7 @@ const jsonwebtoken = require('jsonwebtoken')
 const router = express.Router()
 const csrf = require('csurf')
 const bodyParser = require('body-parser')
+const fs = require('fs')
 
 //------- .ENV CONFIGURATION -------//
 require('dotenv').config()
@@ -39,23 +40,24 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(cookieParser());
 app.use(csrfProtection)
 
+//------- HTTP PAYLOAD - JWT CONTENT -------//
+const payload = {
+    user: 'Tom Hanks',
+    role: 'admin',
+    // role: 'user',
+    company: 'XYZ'
+}
+
+
 //------- PROTECTED ROUTE - JWT VERIFICATION -------//
-
-// router.get('/user', (req, res) => {
-//     // const csrfToken = req.csrfToken()
-//     const username = req.body.username
-//     const password = req.body.password
-//     res.render('user', { username, password })
-// })
-
 router.get('/user', (req, res) => {
     try {
-        if (req.cookies.token) {
-            const sentJWT = req.cookies.token
+        if (req.cookies.accessToken) {
+            const sentJWT = req.cookies.accessToken
             jsonwebtoken.verify(sentJWT, jwtSecret, function (error, decodedJWT) {
                 if (error) {
                     console.log(`ERROR: ${error.message}`)
-                    res.clearCookie('token')
+                    res.clearCookie('accessToken')
                     res.send('Cannot access this resource: JWT IS INVALID')
                 }
                 else {
@@ -63,8 +65,8 @@ router.get('/user', (req, res) => {
                         console.log('JWT and role is valid!')
                         const username = decodedJWT.user
                         const role = decodedJWT.role
-                        const csrfToken = req.csrfToken()
-                        res.render('user', { username, role, csrfToken })
+                        // const csrfToken = req.csrfToken()
+                        res.render('user', { username, role })
                         // console.log('Redirecting to original URL:', req.originalUrl)
                         // res.render(req.originalUrl, { username, role })
                     }
@@ -75,63 +77,57 @@ router.get('/user', (req, res) => {
             })
         }
         else {
-            res.redirect('/login')
+            req.session.originalURL = req.originalUrl
+            console.log('Redirecting to /login')
             console.log('Original URL:', req.originalUrl)
-            console.log('User route')
+            console.log('Original URL - session:', req.session.originalURL)
+            res.cookie('originalURL', req.originalUrl, { httpOnly: true });
+            res.redirect('/login')
         }
     }
     catch (error) {
-        console.log(`Secret error: ${error.message}`)
+        console.log(`Secret /user error: ${error.message}`)
     }
-})
-
-router.get('/login', csrfProtection, (req, res) => {
-    const csrfToken = req.csrfToken()
-    const username = req.body.username
-    const password = req.body.password
-    console.log('Server issued CSRF token:', csrfToken)
-    res.render('login', { csrfToken, username, password })
 })
 
 // ------------------- JWT ISSUE-------------------//
-router.post('/login', parseForm, csrfProtection, (req, res) => {
-    const payload = {
-        user: 'Tim Burton',
-        // role: 'admin',
-        role: 'user',
-        company: 'XYZ'
-    }
-    try {
-        const username = req.body.username
-        const password = req.body.password
-        // const csrfToken = req.csrfToken()
-        if (username === 'Tom' && password === 'tom') {
-            const token = jsonwebtoken.sign(payload, jwtSecret, { expiresIn: '120s' }, { algorithm: 'HS256' })
-            res.cookie('token', token, { httpOnly: true });
-            console.log(`Issued JWT Access Token: ${token}`)
-            req.flash('success', 'Successfully logged in.',)
-            // not hardcode the 'admin' page --> lookup to the original URL
-            res.redirect('user')
-            // console.log('Original URL:', req.originalUrl)
-            console.log('User is logged in.')
-            console.log('Original URL:', req.originalUrl)
-        }
-        else {
-            console.log('You are not user!')
-            req.flash('error', 'Invalid username or password. Try it again.',)
-            res.redirect('/login')
+// router.post('/login', parseForm, csrfProtection, (req, res) => {
+//     try {
+//         const username = req.body.username
+//         const password = req.body.password
+//         // console.log('PAYLOAD:', payload)
+//         const csrfToken = req.csrfToken()
+//         if (username === 'Tom' && password === 'tom') {
+//             const username = req.body.username
+//             const password = req.body.password
+//             const accessToken = jsonwebtoken.sign(payload, jwtSecret, { expiresIn: '120s' }, { algorithm: 'HS256' })
+//             res.cookie('accessToken', accessToken, { httpOnly: true });
+//             // console.log(`Issued JWT Access Token: ${token}`)
+//             req.flash('success', 'Successfully logged in.',)
+//             // not hardcode the 'admin' page --> lookup to the original URL
+//             // res.redirect('back /user')
+//             res.redirect(req.cookies.originalURL)
+//             // res.render('user', { username, password, csrfToken })
+//             // console.log('Original URL:', req)
+//             console.log('Original URL - user:', req.originalUrl)
+//             console.log('User is logged in.')
+//         }
+//         else {
+//             console.log('You are not user!')
+//             req.flash('error', 'Invalid username or password. Try it again.',)
+//             res.redirect('/login')
 
-        }
-    } catch (err) {
-        console.log(`User Post login error: ${err.message}`)
-    }
+//         }
+//     } catch (err) {
+//         console.log(`User Post login error: ${err.message}`)
+//     }
 
-})
+// })
 
 router.post('/logout', (req, res) => {
-    if (req.cookies.token) {
-        res.clearCookie('token')
-        console.log(`Deleted JWT access token: ${req.cookies.token}`)
+    if (req.cookies.accessToken) {
+        res.clearCookie('accessToken')
+        console.log(`Deleted JWT access accessToken: ${req.cookies.accessToken}`)
         res.redirect('/login')
     }
     else {
