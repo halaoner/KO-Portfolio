@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "nodemon app.js"
+    "test": "nodemon /ajax-example/index.js"
   },
   "repository": "https://github.com/halaoner/KO-Portfolio",
   "author": "Ondrej Halaska",

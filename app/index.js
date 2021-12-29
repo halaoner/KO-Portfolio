@@ -1,10 +1,11 @@
 const express = require('express')
 const ejsMate = require('ejs-mate')
 const path = require('path')
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser')
 const router = express.Router()
-const route = require('./routes/routes')
-const adminRoute = require('./routes/admin');
+const adminRoute = require('./routes/admin')
+const userRoute = require('./routes/user')
+const ajaxRoute = require('./routes/ajax')
 const flash = require('connect-flash')
 const session = require('express-session')
 
@@ -38,13 +39,13 @@ app.use(function (req, res, next) {
 });
 
 //------------- ROUTES -------------//
-app.use('/', route)
 app.use(adminRoute)
-app.use('/home', route)
+app.use(userRoute)
+app.use(ajaxRoute)
 
-// app.get('/home', (req, res) => {
-//     res.send('Home Page')
-// })
+app.get('/home', (req, res) => {
+    res.render('home')
+})
 
 app.get('/projects', (req, res) => {
     res.send('Projects page')

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+</head>
+
+<body>
+    <h1>User Unprotected Resource</h1>
+    <div style="color:seagreen"><%= success %></div>
+    <form action="/userLogin" method="POST" onload="onLogin()">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" id="username" placeholder="Username">
+        </div>
+        <div class="form-group mt-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+        </div>
+        <div class="mt-3">
+            <!-- <button onClick="onLogin()" type="submit" class="btn btn-primary">Login</button> -->
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+        <br>
+        <% if (username != 'Tom' || password != 'tom') { %>
+        <div style="color:red"> <%= error %> </div>
+        <% } %>
+    </form>
+</body>
+
+<script>
+    //------------- FETCHING DATA FROM THE SERVER -------------//
+    // async function onLogin() {
+    // function onLogin() {
+
+    //     let cookie = document.cookie
+    //     let csrfToken = document.getElementById("_csrf").value
+
+    //     console.log('Client cookie:', cookie)
+    //     console.log('Client csrf secret:', csrfToken)
+
+    //     // const response = await fetch("/cookie/" + cookie, {
+    //     const response = fetch("/cookie/" + csrfToken, {
+    //         method: "GET"
+    //     })
+    //         .then(function (response) {
+    //             if (!response.ok) {
+    //                 throw new Error(`HTTP error! status: ${response.status}`);
+    //             }
+    //             else {
+    //                 console.log('Response:', response)
+    //                 console.log('All OK')
+    //             }
+    //         })
+
+    //     console.log('Response:', response)
+
+
+    // }
+
+    // onLogin()
+</script>
+
+</html>
