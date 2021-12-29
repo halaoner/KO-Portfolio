@@ -29,16 +29,16 @@ The major goal of this project is to create a web application that will serve a 
 1. Install node modules\
 `npm install`
 
-1. Create local `.env` file with following variables:\
+1. Create local `.env` file with the following variables:\
 `PORT`\
-`JWT_SECRET`
+`JWT_SECRET`\
+`SESSION_SECRET`
 
 1. Run application locally in a development mode by running following command:\
 `npm run dev`
 
 1. Open the browser and write `http://localhost:${PORT}/${RESOURCE}` in the URL field to access the application.\
-For example:
-`http://localhost:3000/admin`
+For example: `http://localhost:3000/admin`
 
 
 ## Contribute
