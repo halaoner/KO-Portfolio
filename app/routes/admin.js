@@ -6,7 +6,6 @@ const jsonwebtoken = require('jsonwebtoken')
 const router = express.Router()
 const csrf = require('csurf')
 const bodyParser = require('body-parser')
-const fs = require('fs')
 
 //------- .ENV CONFIGURATION -------//
 require('dotenv').config()
@@ -44,8 +43,8 @@ app.use(csrfProtection)
 //------- HTTP PAYLOAD - JWT CONTENT -------//
 const payload = {
     user: 'Tim Burton',
-    role: 'admin',
-    // role: 'user',
+    // role: 'admin',
+    role: 'user',
     company: 'XYZ'
 }
 
@@ -53,6 +52,7 @@ const payload = {
 //------- PROTECTED ROUTE - JWT VERIFICATION -------//
 router.get('/admin', (req, res) => {
     try {
+        res.cookie('originalURL', req.originalUrl, { httpOnly: true });
         if (req.cookies.accessToken) {
             const sentJWT = req.cookies.accessToken
             jsonwebtoken.verify(sentJWT, jwtSecret, function (error, decodedJWT) {
@@ -67,9 +67,19 @@ router.get('/admin', (req, res) => {
                         const username = decodedJWT.user
                         const role = decodedJWT.role
                         res.render('admin', { username, role })
+                        console.log('Decoded JWT admin accesToken:', decodedJWT)
                         // console.log('Redirecting to original URL:', req.originalUrl)
                         // res.render(req.originalUrl, { username, role })
                     }
+                    // if (decodedJWT.role === 'user') {
+                    //     console.log('JWT and role is valid!')
+                    //     const username = decodedJWT.user
+                    //     const role = decodedJWT.role
+                    //     console.log('Decoded JWT user-role:', decodedJWT)
+                    //     res.render('user', { username, role })
+                    //     // console.log('Redirecting to original URL:', req.originalUrl)
+                    //     // res.render(req.originalUrl, { username, role })
+                    // }
                     else {
                         res.send('You are not admin! Do not have permissions!')
                     }
@@ -78,10 +88,10 @@ router.get('/admin', (req, res) => {
         }
         else {
             // res.redirect('/login')
-            req.session.originalURL = req.originalUrl
+            // req.session.originalURL = req.originalUrl
             // console.log('Original URL:', req.originalUrl)
             // console.log('Original URL - session:', req.session.originalURL)
-            res.cookie('originalURL', req.originalUrl, { httpOnly: true });
+            // res.cookie('originalURL', req.originalUrl, { httpOnly: true });
             res.redirect('/login')
         }
     }
@@ -102,41 +112,34 @@ router.get('/login', csrfProtection, (req, res) => {
 })
 
 // ------------------- JWT ISSUE-------------------//
+// TODO: user can access /admin even if the token is isused for admin user - fix this
 router.post('/login', parseForm, csrfProtection, (req, res) => {
     try {
         const username = req.body.username
         const password = req.body.password
-        const csrfToken = req.csrfToken()
         if (username === 'Tim' && password === 'tim') {
             const accessToken = jsonwebtoken.sign(payload, jwtSecret, { expiresIn: '120s' }, { algorithm: 'HS256' })
             res.cookie('accessToken', accessToken, { httpOnly: true });
-            // console.log(`Issued JWT Access Token: ${token}`)
             req.flash('success', 'Successfully logged in.',)
-            // not hardcode the 'admin' page --> lookup to the original URL
+            // TODO: not hardcode the 'admin' page --> lookup to the original URL
             res.redirect(req.cookies.originalURL)
-            // console.log('Original URL - POST Login:', req.originalUrl)
             console.log('Admin is logged in.')
         }
-        if (username === 'Tom' && password === 'tom') {
+        // TODO: if role admin and enter username: Tom and password: tom, flash ivalid role
+        else if (username === 'Tom' && password === 'tom') {
             const username = req.body.username
             const password = req.body.password
-            const accessToken = jsonwebtoken.sign(payload, jwtSecret, { expiresIn: '120s' }, { algorithm: 'HS256' })
-            res.cookie('accessToken', accessToken, { httpOnly: true });
-            // console.log(`Issued JWT Access Token: ${token}`)
+            const userAccessToken = jsonwebtoken.sign(payload, jwtSecret, { expiresIn: '120s' }, { algorithm: 'HS256' })
+            res.cookie('userAccessToken', userAccessToken, { httpOnly: true });
             req.flash('success', 'Successfully logged in.',)
-            // not hardcode the 'admin' page --> lookup to the original URL
+            // TODO: not hardcode the 'admin' page --> lookup to the original URL
             res.redirect(req.cookies.originalURL)
-            // res.render('user', { username, password, csrfToken })
-            // console.log('Original URL:', req)
-            console.log('Original URL:', req.originalUrl)
             console.log('User is logged in.')
         }
         else {
             console.log('You are not admin!')
-            console.log('Original URL - admin:', req.originalUrl)
             req.flash('error', 'Invalid username or password. Try it again.',)
             res.redirect('/login')
-
         }
     } catch (err) {
         console.log(`Admin Post login error: ${err.message}`)
@@ -147,7 +150,12 @@ router.post('/login', parseForm, csrfProtection, (req, res) => {
 router.post('/logout', (req, res) => {
     if (req.cookies.accessToken) {
         res.clearCookie('accessToken', 'originalURL')
-        console.log(`Deleted JWT access accessToken: ${req.cookies.accessToken}`)
+        console.log(`Deleted JWT admin access accessToken: ${req.cookies.accessToken}`)
+        res.redirect('/login')
+    }
+    else if (req.cookies.userAccessToken) {
+        res.clearCookie('userAccessToken', 'originalURL')
+        console.log(`Deleted JWT user access accessToken: ${req.cookies.userAccessToken}`)
         res.redirect('/login')
     }
     else {
@@ -160,46 +168,5 @@ router.post('/logout', (req, res) => {
 // /webshop --> login --> AUTH is OK --> /webshop ----> OK
 // unprotected URL - no AUTH - render Hello Nobody -> login --> AUTH OK --> protected URL - render Hello Ondrej ---> OK
 // wrong password --> render error page with login page/ button with Try Login again (chance for user to log in again) ---> OK
-
-
-// passport.use('local', new LocalStrategy(
-
-//     function (username, password, done) {
-//         User({ username }, function (err, user) {
-//             if (err) { return done(err); }
-//             if (!user) { return done(null, false); }
-//             if (!user.verifyPassword(password)) { return done(null, false); }
-//             return done(null, user);
-//         });
-//     }
-// ));
-
-// passport.use(new LocalStrategy({
-//     usernameField: 'email',
-//     passwordField: 'passwd',
-//     passReqToCallback: true,
-//     session: false
-// },
-//     function (req, username, password, done) {
-//         // request object is now first argument
-//         // ...
-//     }
-// ));
-
-// router.get('/login', csrfProtection, (req, res) => {
-//     const csrfToken = req.csrfToken()
-//     const username = req.body.username
-//     const password = req.body.password
-//     console.log('Server issued CSRF token ---->', csrfToken)
-//     res.render('login', { csrfToken, username, password })
-// })
-
-
-// router.post('/login',
-//     passport.authenticate('local', { failureRedirect: '/login' }),
-//     function (req, res) {
-//         res.redirect('/admin');
-//     });
-
 
 module.exports = router;

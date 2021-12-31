@@ -6,7 +6,6 @@ const jsonwebtoken = require('jsonwebtoken')
 const router = express.Router()
 const csrf = require('csurf')
 const bodyParser = require('body-parser')
-const fs = require('fs')
 
 //------- .ENV CONFIGURATION -------//
 require('dotenv').config()
@@ -40,20 +39,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(cookieParser());
 app.use(csrfProtection)
 
-//------- HTTP PAYLOAD - JWT CONTENT -------//
-const payload = {
-    user: 'Tom Hanks',
-    role: 'admin',
-    // role: 'user',
-    company: 'XYZ'
-}
-
 
 //------- PROTECTED ROUTE - JWT VERIFICATION -------//
 router.get('/user', (req, res) => {
     try {
-        if (req.cookies.accessToken) {
-            const sentJWT = req.cookies.accessToken
+        res.cookie('originalURL', req.originalUrl, { httpOnly: true });
+        if (req.cookies.userAccessToken) {
+            const sentJWT = req.cookies.userAccessToken
             jsonwebtoken.verify(sentJWT, jwtSecret, function (error, decodedJWT) {
                 if (error) {
                     console.log(`ERROR: ${error.message}`)
@@ -65,23 +57,16 @@ router.get('/user', (req, res) => {
                         console.log('JWT and role is valid!')
                         const username = decodedJWT.user
                         const role = decodedJWT.role
-                        // const csrfToken = req.csrfToken()
+                        console.log('Decoded user JWT accessToken:', decodedJWT)
                         res.render('user', { username, role })
-                        // console.log('Redirecting to original URL:', req.originalUrl)
-                        // res.render(req.originalUrl, { username, role })
                     }
                     else {
-                        res.send('You are not user! Do not have permissions!')
+                        res.status(200).send('You are not user! Do not have permissions - invalid role!')
                     }
                 }
             })
         }
         else {
-            req.session.originalURL = req.originalUrl
-            console.log('Redirecting to /login')
-            console.log('Original URL:', req.originalUrl)
-            console.log('Original URL - session:', req.session.originalURL)
-            res.cookie('originalURL', req.originalUrl, { httpOnly: true });
             res.redirect('/login')
         }
     }
@@ -90,50 +75,6 @@ router.get('/user', (req, res) => {
     }
 })
 
-// ------------------- JWT ISSUE-------------------//
-// router.post('/login', parseForm, csrfProtection, (req, res) => {
-//     try {
-//         const username = req.body.username
-//         const password = req.body.password
-//         // console.log('PAYLOAD:', payload)
-//         const csrfToken = req.csrfToken()
-//         if (username === 'Tom' && password === 'tom') {
-//             const username = req.body.username
-//             const password = req.body.password
-//             const accessToken = jsonwebtoken.sign(payload, jwtSecret, { expiresIn: '120s' }, { algorithm: 'HS256' })
-//             res.cookie('accessToken', accessToken, { httpOnly: true });
-//             // console.log(`Issued JWT Access Token: ${token}`)
-//             req.flash('success', 'Successfully logged in.',)
-//             // not hardcode the 'admin' page --> lookup to the original URL
-//             // res.redirect('back /user')
-//             res.redirect(req.cookies.originalURL)
-//             // res.render('user', { username, password, csrfToken })
-//             // console.log('Original URL:', req)
-//             console.log('Original URL - user:', req.originalUrl)
-//             console.log('User is logged in.')
-//         }
-//         else {
-//             console.log('You are not user!')
-//             req.flash('error', 'Invalid username or password. Try it again.',)
-//             res.redirect('/login')
-
-//         }
-//     } catch (err) {
-//         console.log(`User Post login error: ${err.message}`)
-//     }
-
-// })
-
-router.post('/logout', (req, res) => {
-    if (req.cookies.accessToken) {
-        res.clearCookie('accessToken')
-        console.log(`Deleted JWT access accessToken: ${req.cookies.accessToken}`)
-        res.redirect('/login')
-    }
-    else {
-        res.send('Not Authorized!')
-    }
-})
 
 //TODO:
 // /admin --> login --> AUTH is OK --> /admin ------> OK
