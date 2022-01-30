@@ -29,7 +29,7 @@ The major goal of this project is to create a web application that will serve a 
 1. Install node modules\
 `npm install`
 
-1. Create local `.env` file with the following variables:\
+1. Create local `.env` file with the following variables in the `/app` directory:\
 `PORT`\
 `JWT_SECRET`\
 `SESSION_SECRET`
