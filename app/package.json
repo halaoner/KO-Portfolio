@@ -11,6 +11,8 @@
   "author": "Ondrej Halaska",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.1059.0",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
