@@ -57,9 +57,10 @@ async function writeData(param1, param2) {
 };
 
 async function hashAndSaveData() {
-    const param1 = 'Omar'
-    const param2 = await hashPassword('admin12221')
+    const param1 = 'Kate'
+    const param2 = await hashPassword('admin')
     await writeData(param1, param2)
+    console.log('Save hash:', param2)
     console.log('Hashed and Saved')
 }
 
