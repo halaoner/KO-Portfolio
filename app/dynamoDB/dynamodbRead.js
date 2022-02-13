@@ -14,6 +14,7 @@ async function readData(username) {
         TableName: "Users",
         ProjectionExpression: "username, password",
         KeyConditionExpression: "username = :username",
+        // KeyConditionExpression: "password = :password and username = :username",
         ExpressionAttributeValues: {
             ":username": username,
             // ":password": savedPassword
@@ -24,29 +25,23 @@ async function readData(username) {
         if (data.Count > 0) {
             // console.log("Query succeeded.");
             data.Items.forEach(function (item) {
-                console.log("username:", item.username + "; " + "hashedPassword:", item.password)
+                // console.log("username:", item.username + "; " + "hashedPassword:", item.password)
                 savedUsername = item.username
                 savedPassword = item.password
                 console.log('Reading from DB: data found!')
-                // return savedPassword && savedUsername
-                //----- 'savedPassword' is the result of the if condition -----//
-                return savedPassword
             })
         }
         else {
             console.log('Reading from DB: Username or hash DO NOT MATCH with the stored one!')
         }
-        // console.log('DATA --->', savedPassword)
-
-        //----- 'savedPwd' is the result of the readData() function
-        return savedPwd
+        //----- 'data' is the result of the readData() function
+        return data
     }
     catch (err) {
         // console.log("Error:", err);
         console.log("Unable to query. Error:", JSON.stringify(err, null, 2));
     }
 }
-
 
 //-------- compare 'password' provided by the user with 'savedPassword' stored in DB --------//
 const comparePwd = async (password, savedPassword) => {
@@ -59,18 +54,25 @@ const comparePwd = async (password, savedPassword) => {
 };
 
 async function compare() {
-    const username = 'Kate'
-    const password = 'admin12'
-    // const read = await readData(username, savedPassword)
-    await readData(username)
-    console.log('Read Data:', savedPassword)
-    await comparePwd(password, savedPassword)
+    try {
+        const username = 'Katee'
+        const password = 'admin123'
+
+        const user = await readData(username)
+        const arr = user.Items
+        if (arr.length === 0) {
+            console.log('User not found in DB')
+        } else {
+            await comparePwd(password, savedPassword)
+            console.log('Read Data:', savedPassword)
+        }
+    }
+    catch (err) {
+        console.log('Compare error:', err)
+    }
 }
 
 compare()
-
-//TODO: username and hash must match --> return savedPassword & savedUsername
-
 
 // ------- username, password and hash must match to get following output:
 // username: Kate; hashedPassword: $2b$10$mcaXb7BUH3hRKfkMSmhc1uoBXFH4C8iZzcU/MLxqevzpPrUZPSBri
