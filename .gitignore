@@ -1,2 +1,8 @@
-# Ignoring .DS_Store file
+#Ignoring .DS_Store file
 *.DS_Store
+
+#Ignoring node modules
+app/node_modules
+
+#Ignoring local env file
+.env
