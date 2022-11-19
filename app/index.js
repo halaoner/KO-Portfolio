@@ -40,16 +40,8 @@ app.use(function (req, res, next) {
 app.use(adminRoute)
 app.use(userRoute)
 
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
     res.render('home')
-})
-
-app.get('/projects', (req, res) => {
-    res.send('Projects page')
-})
-
-app.get('/about', (req, res) => {
-    res.send('Aboutme')
 })
 
 //--- If none of above route is matched
