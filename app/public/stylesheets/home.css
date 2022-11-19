@@ -1,16 +1,31 @@
-#home {
-    color: black;
-    padding: 50px 30px;
-}
-#projects {
-    color: black;
-    padding: 50px 30px;
+#about {
+    color:darkgoldenrod;
+    padding: 10px 20px;
 }
 
-#about{
-    color: black;
-    padding: 50px 30px;
+#experience {
+    color:red;
+    padding: 10px 20px;
+}
+
+#projects{
+    color:black;
+    padding: 10px 20px;
+    /* margin-right: 3px; */
+}
+
+#contact{
+    color:green;
+    padding: 10px 20px;
     margin-right: 100px;
+}
+
+#intro{
+    text-align: left;
+}
+
+#navBarLogo{
+    text-align: right;
 }
 
 #introImage {
@@ -18,15 +33,17 @@
     height: 500px;
 }
 
-/* .navbar-toggler {
-    border-color: black
-} */
+html {
+    scroll-behavior: smooth;
+  }
 
 #submit {
-    /* display: inline-block;
-    vertical-align: top; */
-    margin-left: 63rem;
-    /* white-space: normal */
+    display: inline-block; 
+    vertical-align: top; 
+    /* margin-left: 20rem; */
+    text-align: right;
+    /* margin-right: 100rem; */
+    white-space: normal
 }
 
 #message {
