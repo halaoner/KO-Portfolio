@@ -23,7 +23,6 @@
     color:black;
     padding: 10px 20px;
     margin-right: 100px;
-    text-align: right;
 }
 
 #navBarLogo{
@@ -81,20 +80,39 @@
     color:black;
     text-align: left;
     font-size: 30px;
-    margin-top: 100px;
+    font-weight: 800;
+    font-variant: small-caps;
+    margin-top: 350px;
 }
 
 #aboutMeContent {
     color: black;
     text-align: left;
     font-size: 20px;
+    font-weight: 200;
+}
 
+#aboutMeTechnologies {
+    color:black;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 200;
+    margin-top: 50px;
+}
+
+#technogolies {
+    color: aqua;
+    /* margin-top: 100px; */
+}
+
+#technologiesContent {
+    font-size: 15px;
 }
 
 #introImage {
     width: 300px;
     height: 300px;
-    margin-top: 50px;
+    margin-top: 320px;
 }
 
 /* ----------------------------------------------------
@@ -110,13 +128,24 @@
     color:black;
     text-align: left;
     font-size: 30px;
-    margin-top: 100px;
+    font-weight: 800;
+    font-variant: small-caps;
+    margin-top: 300px;
 }
 
 #workExperienceContent {
     color: black;
     text-align: left;
     font-size: 20px;
+    font-weight: 200;
+}
+
+#workExperienceContent2 {
+    color: black;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 200;
+    margin-top: 380px;
 }
 
 
@@ -132,42 +161,26 @@
     color:black;
     text-align: left;
     font-size: 30px;
-    margin-top: 100px;
+    font-weight: 800;
+    font-variant: small-caps;
+    margin-top: 300px;
 }
 
 #myProjectsContent {
     color: black;
     text-align: left;
     font-size: 20px;
+    font-weight: 200;
 }
 
 #projectsCarousel{
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 40px;
     object-fit: cover;
     object-position: center;
     height: 50vh;
     overflow: hidden;
 }
-
-#projectsCarousel2{
-    margin-top: 100px;
-    margin-bottom: 40px;
-    object-fit: cover;
-    object-position: center;
-    height: 50vh;
-    overflow: hidden;
-}
-
-#test{
-    margin-top: 100px;
-    margin-bottom: 40px;
-    object-fit: cover;
-    object-position: center;
-    height: 50vh;
-    overflow: hidden;
-}
-
 
 /* ----------------------------------------------------
 -------------------------------------------------------
