@@ -101,12 +101,16 @@
 }
 
 #technogolies {
-    color: aqua;
+    color:rosybrown;
+    font-size: 20px;
+    /* margin-left: 140px; */
     /* margin-top: 100px; */
 }
 
 #technologiesContent {
     font-size: 15px;
+    width: 80%;
+    /* margin-left: 123px; */
 }
 
 #introImage {
@@ -130,7 +134,7 @@
     font-size: 30px;
     font-weight: 800;
     font-variant: small-caps;
-    margin-top: 300px;
+    margin-top: 250px;
 }
 
 #workExperienceContent {
@@ -140,13 +144,13 @@
     font-weight: 200;
 }
 
-#workExperienceContent2 {
+/* #workExperienceContent2 {
     color: black;
     text-align: left;
     font-size: 20px;
     font-weight: 200;
     margin-top: 380px;
-}
+} */
 
 
 /* ----------------------------------------------------
