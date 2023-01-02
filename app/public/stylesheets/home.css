@@ -82,7 +82,7 @@
     font-size: 30px;
     font-weight: 800;
     font-variant: small-caps;
-    margin-top: 350px;
+    /* margin-top: 350px; */
 }
 
 #aboutMeContent {
@@ -116,7 +116,12 @@
 #introImage {
     width: 300px;
     height: 300px;
-    margin-top: 320px;
+    /* margin-top: 340px; */
+    margin-left: 20px;
+}
+
+#spaces {
+    margin-top: 350px;
 }
 
 /* ----------------------------------------------------
