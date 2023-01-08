@@ -149,6 +149,22 @@
     font-weight: 200;
 }
 
+#jobTitle {
+    text-align: left;
+}
+
+#startDate {
+    text-align: left;
+    font-size: 14px;
+}
+
+#jobContent {
+    text-align: left;
+    font-size: 15px;
+}
+
+
+
 /* #workExperienceContent2 {
     color: black;
     text-align: left;
