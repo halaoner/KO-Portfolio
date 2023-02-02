@@ -13,4 +13,3 @@ node dynamoDB/dynamodbWrite.js
 ```bash
 aws dynamodb scan --table-name Users --endpoint-url http://localhost:8000
 ```
-

@@ -1,37 +1,240 @@
-#home {
-    color: black;
-    padding: 50px 30px;
-}
-#projects {
-    color: black;
-    padding: 50px 30px;
+/* ----------------------------------------------------
+-----------------> navigation bar <--------------------
+------------------------------------------------------- */
+
+#about {
+    color:black;
+    padding: 10px 20px;
+
 }
 
-#about{
-    color: black;
-    padding: 50px 30px;
+#experience {
+    color:black;
+    padding: 10px 20px;
+}
+
+#projects{
+    color:black;
+    padding: 10px 20px;
+    /* margin-right: 3px; */
+}
+
+#contact{
+    color:black;
+    padding: 10px 20px;
     margin-right: 100px;
 }
 
-#introImage {
-    width: 500px;
-    height: 500px;
+#navBarLogo{
+    text-align: right;
 }
 
-/* .navbar-toggler {
-    border-color: black
+#navbarLogo{
+    margin-left: 50px;
+}
+
+/* ----------------------------------------------------
+-------------------------------------------------------
+------------------------------------------------------- */
+
+/* ----------------------------------------------------
+-----------------> introduction <----------------------
+------------------------------------------------------- */
+
+#introHi{
+    text-align: left;
+    font-size: 20px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    margin-bottom: 20px;
+    margin-top: 150px;
+}
+
+#introName{
+    text-align: left;
+    color: aquamarine;
+    font-size: 60px;
+    margin-bottom: 5px;
+}
+
+#introTaget{
+    text-align: left;
+    font-size: 60px;
+    margin-bottom: 30px;
+    line-height: 70px;
+}
+
+#introCurrentTarget{
+    text-align: left;
+    font-size: 20px
+}
+
+/* ----------------------------------------------------
+-------------------------------------------------------
+------------------------------------------------------- */
+
+/* ----------------------------------------------------
+-----------------> about me <--------------------------
+------------------------------------------------------- */
+
+#aboutMe {
+    color:black;
+    text-align: left;
+    font-size: 30px;
+    font-weight: 800;
+    font-variant: small-caps;
+    /* margin-top: 350px; */
+}
+
+#aboutMeContent {
+    color: black;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+#aboutMeTechnologies {
+    color:black;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 200;
+    margin-top: 50px;
+}
+
+#technogolies {
+    color:rosybrown;
+    font-size: 20px;
+    /* margin-left: 140px; */
+    /* margin-top: 100px; */
+}
+
+#technologiesContent {
+    font-size: 15px;
+    width: 80%;
+    /* margin-left: 123px; */
+}
+
+#introImage {
+    width: 300px;
+    height: 300px;
+    /* margin-top: 340px; */
+    margin-left: 20px;
+}
+
+#spaces {
+    margin-top: 350px;
+}
+
+/* ----------------------------------------------------
+-------------------------------------------------------
+------------------------------------------------------- */
+
+/* ----------------------------------------------------
+------------------> work experience <------------------
+------------------------------------------------------- */
+
+
+#workExperience {
+    color:black;
+    text-align: left;
+    font-size: 30px;
+    font-weight: 800;
+    font-variant: small-caps;
+    margin-top: 250px;
+}
+
+#workExperienceContent {
+    color: black;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+#jobTitle {
+    text-align: left;
+}
+
+#startDate {
+    text-align: left;
+    font-size: 14px;
+}
+
+#jobContent {
+    text-align: left;
+    font-size: 15px;
+}
+
+
+
+/* #workExperienceContent2 {
+    color: black;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 200;
+    margin-top: 380px;
 } */
 
+
+/* ----------------------------------------------------
+-------------------------------------------------------
+------------------------------------------------------- */
+
+/* ----------------------------------------------------
+------------------> projects <-------------------------
+------------------------------------------------------- */
+
+#myProjects {
+    color:black;
+    text-align: left;
+    font-size: 30px;
+    font-weight: 800;
+    font-variant: small-caps;
+    margin-top: 300px;
+}
+
+#myProjectsContent {
+    color: black;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+#projectsCarousel{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    object-fit: cover;
+    object-position: center;
+    height: 50vh;
+    overflow: hidden;
+}
+
+/* ----------------------------------------------------
+-------------------------------------------------------
+------------------------------------------------------- */
+
+/* ----------------------------------------------------
+------------------> contact <--------------------------
+------------------------------------------------------- */
+
 #submit {
-    /* display: inline-block;
-    vertical-align: top; */
-    margin-left: 63rem;
-    /* white-space: normal */
+    display: inline-block;
+    vertical-align: top;
+    /* margin-left: 20rem; */
+    text-align: right;
+    /* margin-right: 100rem; */
+    white-space: normal
 }
 
 #message {
     height: 200px;
 }
+
+/* ----------------------------------------------------
+-------------------------------------------------------
+------------------------------------------------------- */
+
+html {
+    scroll-behavior: smooth;
+  }
 
 /* #contact {
     background-color: burlywood;
